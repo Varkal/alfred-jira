@@ -13,10 +13,12 @@ class SearchCommand(Command):
     def main(self):
         if self.arguments.pattern:
             for issue in self.app.jira.search(self.arguments.pattern)["issues"]:
-                self.app.workflow.add_item(WorkflowItem(
-                    title=issue["fields"]["summary"],
-                    subtitle=issue["key"],
-                    arg=issue["key"])
+                self.app.workflow.add_item(
+                    WorkflowItem(
+                        title=issue["fields"]["summary"],
+                        subtitle=issue["key"],
+                        arg=issue["key"]
+                    )
                 )
         else:
             self.app.workflow.add_item(WorkflowItem(
